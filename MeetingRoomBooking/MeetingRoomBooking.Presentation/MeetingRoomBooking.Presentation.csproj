@@ -36,6 +36,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MeetingRoomBooking.DataAccess\MeetingRoomBooking.DataAccess.csproj" />
+    <ProjectReference Include="..\MeetingRoomBooking.Domain\MeetingRoomBooking.Domain.csproj" />
     <ProjectReference Include="..\MeetingRoomBooking.Services\MeetingRoomBooking.Services.csproj" />
   </ItemGroup>
 

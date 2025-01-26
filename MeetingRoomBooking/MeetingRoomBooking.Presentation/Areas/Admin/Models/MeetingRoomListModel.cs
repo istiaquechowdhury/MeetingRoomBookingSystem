@@ -1,6 +1,8 @@
-﻿namespace MeetingRoomBooking.Presentation.Areas.Admin.Models
+﻿using MeetingRoomBooking.Domain;
+
+namespace MeetingRoomBooking.Presentation.Areas.Admin.Models
 {
-    public class MeetingRoomListModel
+    public class MeetingRoomListModel : DataTable
     {
     }
 }

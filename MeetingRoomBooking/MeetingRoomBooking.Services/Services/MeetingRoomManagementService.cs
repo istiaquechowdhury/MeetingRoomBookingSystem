@@ -1,4 +1,5 @@
-﻿using MeetingRoomBooking.Domain.Entities;
+﻿using MeetingRoomBooking.Domain;
+using MeetingRoomBooking.Domain.Entities;
 using MeetingRoomBooking.Domain.UnitOfWorkInterfaces;
 using System;
 using System.Collections.Generic;
@@ -10,17 +11,41 @@ namespace MeetingRoomBooking.Services.Services
 {
     public class MeetingRoomManagementService : IMeetingRoomManagementService
     {
-        private readonly IMeetingRoomUnitOfWork _InventoryUnitOfWork;
+        private readonly IMeetingRoomUnitOfWork _MeetingUnitOfWork;
 
 
-        public MeetingRoomManagementService(IMeetingRoomUnitOfWork InventoryUnitOfWork)
+        public MeetingRoomManagementService(IMeetingRoomUnitOfWork MeetingUnitOfWork)
         {
-            _InventoryUnitOfWork = InventoryUnitOfWork;
+            _MeetingUnitOfWork = MeetingUnitOfWork;
         }
         public void CreateMeeting(MeetingRoom meetingRoom)
         {
-            _InventoryUnitOfWork.MeetingRoom.Add(meetingRoom);
-            _InventoryUnitOfWork.Save();
+            _MeetingUnitOfWork.MeetingRoom.Add(meetingRoom);
+            _MeetingUnitOfWork.Save();
+        }
+
+        public (IList<MeetingRoom> data, int total, int totaldisplay) GetMeetings(int pageIndex, int pageSize, DataTablesSearch search, string? order)
+        {
+            return _MeetingUnitOfWork.MeetingRoom.GetPagedMeetingRoom(pageIndex, pageSize, search, order);
+        }
+
+        public MeetingRoom GetMeeting(Guid id)
+        {
+            return _MeetingUnitOfWork.MeetingRoom.GetById(id);  
+        }
+
+      
+
+        public void UpdateMeeting(MeetingRoom meeting)
+        {
+            _MeetingUnitOfWork.MeetingRoom.Edit(meeting);
+            _MeetingUnitOfWork.Save();
+        }
+
+        public void DeleteMeetingRoom(Guid id)
+        {
+           _MeetingUnitOfWork.MeetingRoom.Remove(id);   
+            _MeetingUnitOfWork.Save();
         }
     }
 }

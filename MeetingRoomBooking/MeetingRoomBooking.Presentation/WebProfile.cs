@@ -10,7 +10,10 @@ namespace MeetingRoomBooking.Presentation
         public WebProfile()
         {
             CreateMap<MeetingRoomCreateModel, MeetingRoom>().ReverseMap();
-            
+            CreateMap<MeetingRoomUpdateModel, MeetingRoom>().ReverseMap();
+
+
+
 
 
 

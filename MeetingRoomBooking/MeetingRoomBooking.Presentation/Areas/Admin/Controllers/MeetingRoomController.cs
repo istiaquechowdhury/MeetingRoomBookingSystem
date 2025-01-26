@@ -34,9 +34,9 @@ namespace MeetingRoomBooking.Presentation.Areas.Admin.Controllers
             return View();
         }
 
-        public JsonResult GetClientJsonData([FromBody] ClientListModel model)
+        public JsonResult GetMeetingRoomJsonData([FromBody] MeetingRoomListModel model)
         {
-            var result = _ClientManagementService.GetClients(model.PageIndex, model.PageSize, model.Search, model.FormatSortExpression("Clienttype", "Name", "Address", "phone", "DOB", "NID", "TIN"));
+            var result = _MeetingManagementService.GetMeetings(model.PageIndex, model.PageSize, model.Search, model.FormatSortExpression("Name", "location", "Capacity", "facilities", "Description", "Color", "ImagePath","Status", "AvailableDay","Time"));
 
             var ProductJsonData = new
             {
@@ -46,20 +46,15 @@ namespace MeetingRoomBooking.Presentation.Areas.Admin.Controllers
                         select new string[]
                         {
                    
-                    // Construct full S3 URL for image
-                    HttpUtility.HtmlEncode(record.Clienttype),
+                    "",
+                    HttpUtility.HtmlEncode(record.ImagePath),
                     HttpUtility.HtmlEncode(record.Name),
-                    HttpUtility.HtmlEncode(record.Address),
-                    HttpUtility.HtmlEncode(record.phone),
-                    HttpUtility.HtmlEncode(record.DOB),
-                    HttpUtility.HtmlEncode(record.NID),
-                    HttpUtility.HtmlEncode(record.TIN),
-                    //HttpUtility.HtmlEncode(record.ReturnDocument),
-                    //HttpUtility.HtmlEncode(record.AcknowledgementDocument),
-                    //HttpUtility.HtmlEncode(record.TaxCertificate),
-                    //HttpUtility.HtmlEncode(record.TINCertificate),
-                    //HttpUtility.HtmlEncode(record.NIDFrontSide),
-                    //HttpUtility.HtmlEncode(record.NIDBackSide),
+                    HttpUtility.HtmlEncode(record.Facilities),
+                    HttpUtility.HtmlEncode(record.Capacity),
+                    HttpUtility.HtmlEncode(record.Color),
+                    HttpUtility.HtmlEncode(record.Status),
+              
+                    
                     record.Id.ToString(),
 
                         }
@@ -156,6 +151,165 @@ namespace MeetingRoomBooking.Presentation.Areas.Admin.Controllers
 
             return View(MeetingRoomCreateModel);
         }
+
+
+
+      
+        public IActionResult Update(Guid id)
+        {
+            MeetingRoom meeting = _MeetingManagementService.GetMeeting(id);
+
+           
+
+
+            var model = _mapper.Map<MeetingRoomUpdateModel>(meeting);
+           
+
+            return View(model);
+        }
+
+       
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(MeetingRoomUpdateModel meetingUpdateModel, bool redirectToNew = false)
+        {
+            if (ModelState.IsValid)
+            {
+                // Retrieve the existing product from the database
+                var meeting = _MeetingManagementService.GetMeeting(meetingUpdateModel.Id);
+
+                // Handle image removal if the checkbox is checked
+                if (meetingUpdateModel.RemoveImage)
+                {
+                    // Delete the existing image if it exists
+                    if (!string.IsNullOrEmpty(meeting.ImagePath))
+                    {
+                        var filePath = Path.Combine(_hostingEnvironment.WebRootPath, meeting.ImagePath);
+                        if (System.IO.File.Exists(filePath))
+                        {
+                            System.IO.File.Delete(filePath); // Delete the file
+                        }
+                        meetingUpdateModel.ImagePath = null; // Set the image path to null
+                    }
+                }
+                else
+                {
+                    // Handle image file if a new one is uploaded
+                    if (meetingUpdateModel.ImageFile != null && meetingUpdateModel.ImageFile.Length > 0)
+                    {
+                        // Define the upload path
+                        var uploadPath = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
+                        if (!Directory.Exists(uploadPath))
+                        {
+                            Directory.CreateDirectory(uploadPath); // Ensure the folder exists
+                        }
+
+                        // Generate a unique file name
+                        var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(meetingUpdateModel.ImageFile.FileName);
+
+                        // Combine the folder path and file name
+                        var filePath = Path.Combine(uploadPath, uniqueFileName);
+
+                        // Save the new file
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await meetingUpdateModel.ImageFile.CopyToAsync(fileStream);
+                        }
+
+                        // Set the new image path
+                        meetingUpdateModel.ImagePath = Path.Combine("uploads", uniqueFileName);
+
+                        // Remove the old image if it exists
+                        if (!string.IsNullOrEmpty(meeting.ImagePath))
+                        {
+                            var oldFilePath = Path.Combine(_hostingEnvironment.WebRootPath, meeting.ImagePath);
+                            if (System.IO.File.Exists(oldFilePath))
+                            {
+                                System.IO.File.Delete(oldFilePath);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // Retain the existing image path if no new image is uploaded
+                        meetingUpdateModel.ImagePath = meeting.ImagePath;
+                    }
+                }
+
+                // Map the updated model values to the existing product entity
+                meeting = _mapper.Map(meetingUpdateModel, meeting);
+
+                // Set related entities (Category, Taxes, Measurement)
+
+                // Retain the image path
+                meeting.ImagePath = meetingUpdateModel.ImagePath;
+
+                try
+                {
+                    // Update the product in the database
+                    _MeetingManagementService.UpdateMeeting(meeting);
+
+                    TempData["success"] = "Item updated successfully";
+
+                    // Redirect based on whether 'Save and New' was clicked
+                    if (redirectToNew)
+                    {
+                        // Redirect back to the create page to add a new product after updating the current one
+                        return RedirectToAction("Create");
+                    }
+                    else
+                    {
+                        // Redirect to the product list page (Index)
+                        return RedirectToAction("Index");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    TempData["error"] = "Item should be unique";
+                    
+
+                    // Return to the Index on error
+                    return RedirectToAction("Index");
+                }
+            }
+
+            // If the model is invalid, re-populate dropdowns and return to the view
+            
+
+            return View(meetingUpdateModel);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+       
+        public IActionResult Delete(Guid id)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _MeetingManagementService.DeleteMeetingRoom(id);
+
+                    TempData["success"] = "item Deleted Successfully";
+
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    TempData["error"] = "item delete failed";
+
+                   
+
+                    return RedirectToAction("Index");
+
+
+
+                }
+
+            }
+
+            return View();
+        }
+
+
 
 
     }
