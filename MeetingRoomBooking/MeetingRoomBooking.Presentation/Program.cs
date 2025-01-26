@@ -9,6 +9,7 @@ using Serilog.Sinks.MSSqlServer;
 using System.Reflection;
 using MeetingRoomBooking.DataAccess;
 using MeetingRoomBooking.DataAccess.Extensions;
+using MeetingRoomBooking.Presentation;
 
 
 
@@ -80,9 +81,17 @@ try
     builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
         .AddEntityFrameworkStores<ApplicationDbContext>();
 
-  
+    #region Autofac Configuration
 
-   
+    builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+    builder.Host.ConfigureContainer<ContainerBuilder>(containerBuilder =>
+    {
+        containerBuilder.RegisterModule(new WebModule(connectionString, migrationAssembly));
+    });
+
+    #endregion
+
+
     builder.Services.AddControllersWithViews();
 
     var app = builder.Build();
