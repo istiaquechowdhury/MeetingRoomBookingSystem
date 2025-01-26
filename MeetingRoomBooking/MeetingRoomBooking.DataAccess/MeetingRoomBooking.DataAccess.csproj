@@ -19,4 +19,8 @@
 
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MeetingRoomBooking.Domain\MeetingRoomBooking.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

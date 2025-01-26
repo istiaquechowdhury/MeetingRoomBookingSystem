@@ -1,6 +1,5 @@
 using Autofac.Extensions.DependencyInjection;
 using Autofac;
-using MeetingRoomBooking.Presentation.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -8,7 +7,6 @@ using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;
 using System.Reflection;
 using MeetingRoomBooking.DataAccess;
-using MeetingRoomBooking.DataAccess.Extensions;
 using MeetingRoomBooking.Presentation;
 
 
@@ -74,7 +72,8 @@ try
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString, (x) => x.MigrationsAssembly(migrationAssembly)));
+     options.UseSqlServer(connectionString, x => x.MigrationsAssembly(migrationAssembly)));
+
 
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
