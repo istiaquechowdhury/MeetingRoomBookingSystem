@@ -1,3 +1,5 @@
+using Autofac.Extensions.DependencyInjection;
+using Autofac;
 using MeetingRoomBooking.Presentation.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -5,6 +7,9 @@ using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;
 using System.Reflection;
+using MeetingRoomBooking.DataAccess;
+using MeetingRoomBooking.DataAccess.Extensions;
+
 
 
 #region Bootstrap logger
@@ -50,6 +55,8 @@ try
 
     #endregion
 
+   
+
 
     #region General logger
 
@@ -70,6 +77,10 @@ try
 
     builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
         .AddEntityFrameworkStores<ApplicationDbContext>();
+
+  
+
+   
     builder.Services.AddControllersWithViews();
 
     var app = builder.Build();
