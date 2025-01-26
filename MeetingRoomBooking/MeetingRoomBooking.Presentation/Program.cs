@@ -80,6 +80,9 @@ try
     builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
         .AddEntityFrameworkStores<ApplicationDbContext>();
 
+    builder.Services.AddAutoMapper(typeof(WebProfile));
+
+
     #region Autofac Configuration
 
     builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());

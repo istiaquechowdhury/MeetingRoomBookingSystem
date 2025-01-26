@@ -11,7 +11,8 @@ namespace MeetingRoomBooking.Domain.UnitOfWorkInterfaces
 {
     public interface IMeetingRoomUnitOfWork : IUnitOfWork   
     {
-        
+        public IMeetingRoomRepository MeetingRoom { get; }
+
 
 
 
