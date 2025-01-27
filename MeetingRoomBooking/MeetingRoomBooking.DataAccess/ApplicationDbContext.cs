@@ -87,6 +87,14 @@ namespace MeetingRoomBooking.DataAccess
                       RoleId = Guid.Parse("d0b85c3e-4f68-4a8c-9c92-7aabc1234567")  // Static GUID for Admin role
                   }
             );
+
+            builder.Entity<IdentityUserRole<Guid>>()
+           .HasOne<ApplicationUser>()
+           .WithMany()
+           .HasForeignKey(ur => ur.UserId)
+           .OnDelete(DeleteBehavior.Cascade);
+
+           
         }
 
         public DbSet<MeetingRoom> meetingRooms { get; set; } 

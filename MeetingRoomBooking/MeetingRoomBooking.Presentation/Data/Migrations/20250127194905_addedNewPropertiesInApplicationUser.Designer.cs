@@ -4,6 +4,7 @@ using MeetingRoomBooking.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MeetingRoomBooking.Presentation.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250127194905_addedNewPropertiesInApplicationUser")]
+    partial class addedNewPropertiesInApplicationUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,14 +56,14 @@ namespace MeetingRoomBooking.Presentation.Data.Migrations
                         new
                         {
                             Id = new Guid("d0b85c3e-4f68-4a8c-9c92-7aabc1234567"),
-                            ConcurrencyStamp = "c6e9e9e0-a82f-496f-9e26-b8206d3d502f",
+                            ConcurrencyStamp = "f346c035-cd48-41b0-a801-c02a27da8152",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = new Guid("f3c852ab-7db6-4f1a-89c9-8d1abc234567"),
-                            ConcurrencyStamp = "a4b9f1cd-8457-49e8-ac3e-2c751cbf64ab",
+                            ConcurrencyStamp = "74efb950-f857-460d-a759-2402df49cab1",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -151,7 +154,7 @@ namespace MeetingRoomBooking.Presentation.Data.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Status")
+                    b.Property<bool?>("Status")
                         .HasColumnType("bit");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -178,15 +181,15 @@ namespace MeetingRoomBooking.Presentation.Data.Migrations
                         {
                             Id = new Guid("a0f85c3e-4f68-4a8c-9c92-7aabc1234567"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d354b327-6f0f-48b1-a55b-e034a87fc161",
+                            ConcurrencyStamp = "e445dffb-cfb5-432c-8dbd-493a03ad6587",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMH7ie4dRiscb4aTm00JcMfHqHRDzws0uNBxaZq0umjQCAcFIGvvwbGCDusxGkPQ+w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIcLtplgdZhK40snrViH91GYRBam7bsXKjXK2jMbvg7w3hz1yziW90YzhQnwaDRz7A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fcc50453-9333-495b-9443-3a94a663eb15",
+                            SecurityStamp = "a40b0518-9217-4f90-9c0c-6b332304a460",
                             Status = false,
                             TwoFactorEnabled = false,
                             UserName = "admin"
@@ -310,7 +313,7 @@ namespace MeetingRoomBooking.Presentation.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("meetingRooms", (string)null);
+                    b.ToTable("meetingRooms");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
@@ -323,7 +326,7 @@ namespace MeetingRoomBooking.Presentation.Data.Migrations
 
                     b.HasKey("UserId", "RoleId");
 
-                    b.ToTable("IdentityUserRole<Guid>", (string)null);
+                    b.ToTable("IdentityUserRole<Guid>");
 
                     b.HasData(
                         new
