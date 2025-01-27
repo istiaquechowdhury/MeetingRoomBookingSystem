@@ -104,8 +104,8 @@ namespace MeetingRoomBooking.Presentation.Controllers
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         //return LocalRedirect(model.ReturnUrl);
 
-                        TempData["success"] = "An email has been sent to your email";
-                        return RedirectToAction("Register", "Account");
+                        
+                        return RedirectToAction("Login", "Account");
                     }
 
                 }
