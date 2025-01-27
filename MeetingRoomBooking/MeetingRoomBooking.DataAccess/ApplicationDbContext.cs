@@ -1,4 +1,5 @@
-﻿using MeetingRoomBooking.Domain.Entities;
+﻿using MeetingRoomBooking.DataAccess.Identity;
+using MeetingRoomBooking.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -6,8 +7,12 @@ using System;
 
 namespace MeetingRoomBooking.DataAccess
 {
-    public class ApplicationDbContext : IdentityDbContext
-      
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser,
+        ApplicationRole, Guid,
+        ApplicationUserClaim, ApplicationUserRole,
+        ApplicationUserLogin, ApplicationRoleClaim,
+        ApplicationUserToken>
+
     {
         private readonly string _connectionString;
         private readonly string _migrationAssembly;

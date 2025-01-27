@@ -8,6 +8,7 @@ using Serilog.Sinks.MSSqlServer;
 using System.Reflection;
 using MeetingRoomBooking.DataAccess;
 using MeetingRoomBooking.Presentation;
+using MeetingRoomBooking.DataAccess.Identity;
 
 
 
@@ -77,8 +78,17 @@ try
 
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-    builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-        .AddEntityFrameworkStores<ApplicationDbContext>();
+    //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    //    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+    builder.Services.
+         AddIdentity<ApplicationUser, ApplicationRole>()
+        .AddEntityFrameworkStores<ApplicationDbContext>()
+        .AddUserManager<ApplicationUserManager>()
+        .AddRoleManager<ApplicationRoleManager>()
+        .AddSignInManager<ApplicationSignInManager>()
+        .AddDefaultTokenProviders();
+
 
     builder.Services.AddAutoMapper(typeof(WebProfile));
 
@@ -124,7 +134,7 @@ try
     app.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
-    app.MapRazorPages();
+   // app.MapRazorPages();
 
     app.Run();
 
