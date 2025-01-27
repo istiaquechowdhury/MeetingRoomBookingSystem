@@ -11,41 +11,30 @@ namespace MeetingRoomBooking.Presentation.Data.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "IdentityUserRole<Guid>",
-                columns: table => new
-                {
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_IdentityUserRole<Guid>", x => new { x.UserId, x.RoleId });
-                });
-
+           
             migrationBuilder.UpdateData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
                 keyValue: new Guid("d0b85c3e-4f68-4a8c-9c92-7aabc1234567"),
                 column: "ConcurrencyStamp",
-                value: "44afa394-e56b-4108-af6c-c9a1773a0ddb");
+                value: "a00c3d0d-2b6c-4386-b549-4ddd678f4ec2");
 
             migrationBuilder.UpdateData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
                 keyValue: new Guid("f3c852ab-7db6-4f1a-89c9-8d1abc234567"),
                 column: "ConcurrencyStamp",
-                value: "4fd2338c-8276-4927-bebc-d88ac9bb58fe");
+                value: "af2e0222-735b-4dce-97ab-6eb282f725bb");
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: new Guid("a0f85c3e-4f68-4a8c-9c92-7aabc1234567"),
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "921724a0-e5fa-4632-a987-e97da20e2b7c", "AQAAAAIAAYagAAAAEGSm8i5FdMQCKGkrlO/gbTEeCZKjlw5doF1/dAweSD3LPfpf/zochXBOCpHY83p48Q==", "cd097a25-df76-470b-959e-b90e6c6df9e4" });
+                values: new object[] { "c8e8ac11-ea41-4fd1-9df4-85835169654c", "AQAAAAIAAYagAAAAEGIrqDCHoRiGWOUYJoVSth4t0vqGBqDtTwCBhSGOZFDvT80VekOuLpxE4NgBXoO7jQ==", "7b363242-926a-4c11-a038-c1b73b7e5123" });
 
             migrationBuilder.InsertData(
-                table: "IdentityUserRole<Guid>",
+                table: "AspNetUserRoles", // Corrected table name
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[] { new Guid("d0b85c3e-4f68-4a8c-9c92-7aabc1234567"), new Guid("a0f85c3e-4f68-4a8c-9c92-7aabc1234567") });
         }
@@ -53,8 +42,11 @@ namespace MeetingRoomBooking.Presentation.Data.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "IdentityUserRole<Guid>");
+            // Only drop the data if you want to revert the changes
+            migrationBuilder.DeleteData(
+                table: "AspNetUserRoles",
+                keyColumns: new[] { "RoleId", "UserId" },
+                keyValues: new object[] { new Guid("d0b85c3e-4f68-4a8c-9c92-7aabc1234567"), new Guid("a0f85c3e-4f68-4a8c-9c92-7aabc1234567") });
 
             migrationBuilder.UpdateData(
                 table: "AspNetRoles",

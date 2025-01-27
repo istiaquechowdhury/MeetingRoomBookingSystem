@@ -53,14 +53,14 @@ namespace MeetingRoomBooking.Presentation.Data.Migrations
                         new
                         {
                             Id = new Guid("d0b85c3e-4f68-4a8c-9c92-7aabc1234567"),
-                            ConcurrencyStamp = "44afa394-e56b-4108-af6c-c9a1773a0ddb",
+                            ConcurrencyStamp = "a00c3d0d-2b6c-4386-b549-4ddd678f4ec2",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = new Guid("f3c852ab-7db6-4f1a-89c9-8d1abc234567"),
-                            ConcurrencyStamp = "4fd2338c-8276-4927-bebc-d88ac9bb58fe",
+                            ConcurrencyStamp = "af2e0222-735b-4dce-97ab-6eb282f725bb",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -166,15 +166,15 @@ namespace MeetingRoomBooking.Presentation.Data.Migrations
                         {
                             Id = new Guid("a0f85c3e-4f68-4a8c-9c92-7aabc1234567"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "921724a0-e5fa-4632-a987-e97da20e2b7c",
+                            ConcurrencyStamp = "c8e8ac11-ea41-4fd1-9df4-85835169654c",
                             Email = "admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGSm8i5FdMQCKGkrlO/gbTEeCZKjlw5doF1/dAweSD3LPfpf/zochXBOCpHY83p48Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGIrqDCHoRiGWOUYJoVSth4t0vqGBqDtTwCBhSGOZFDvT80VekOuLpxE4NgBXoO7jQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cd097a25-df76-470b-959e-b90e6c6df9e4",
+                            SecurityStamp = "7b363242-926a-4c11-a038-c1b73b7e5123",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
