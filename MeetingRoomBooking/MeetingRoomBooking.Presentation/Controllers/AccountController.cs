@@ -7,10 +7,10 @@ using System.Text.Encodings.Web;
 using System.Text;
 using MeetingRoomBooking.DataAccess.Identity;
 using Microsoft.AspNetCore.Authorization;
-using DevSkill.Inventory.Web.Models;
+using MeetingRoomBooking.Presentation.Models;
 using MeetingRoomBooking.Domain;
 
-namespace DevSkill.Inventory.Web.Controllers
+namespace MeetingRoomBooking.Presentation.Controllers
 {
     public class AccountController : Controller
     {

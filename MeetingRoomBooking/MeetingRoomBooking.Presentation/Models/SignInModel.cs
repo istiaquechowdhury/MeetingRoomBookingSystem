@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using System.ComponentModel.DataAnnotations;
 
-namespace DevSkill.Inventory.Web.Models
-{
-    
+namespace MeetingRoomBooking.Presentation.Models
+{ 
+
+
         public class SignInModel
         {
             public string? ReturnUrl { get; set; }
