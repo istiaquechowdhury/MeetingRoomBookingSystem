@@ -47,14 +47,15 @@ namespace MeetingRoomBooking.Presentation.Areas.Admin.Controllers
                         {
                    
                     "",
+                                       
+
                     HttpUtility.HtmlEncode(record.ImagePath),
                     HttpUtility.HtmlEncode(record.Name),
                     HttpUtility.HtmlEncode(record.Facilities),
                     HttpUtility.HtmlEncode(record.Capacity),
                     HttpUtility.HtmlEncode(record.Color),
-                    HttpUtility.HtmlEncode(record.Status),
-              
-                    
+                    HttpUtility.HtmlEncode(record.Status ? "Active" : "Inactive"),
+
                     record.Id.ToString(),
 
                         }
@@ -163,8 +164,9 @@ namespace MeetingRoomBooking.Presentation.Areas.Admin.Controllers
 
 
             var model = _mapper.Map<MeetingRoomUpdateModel>(meeting);
-           
 
+            ViewBag.Capacity = new SelectList(new[] { "1", "2", "3", "4", "5" });
+            ViewBag.Color = new SelectList(new[] { "Red", "Blue", "Green", "Purple", "Yellow" });
             return View(model);
         }
 
@@ -274,8 +276,9 @@ namespace MeetingRoomBooking.Presentation.Areas.Admin.Controllers
             }
 
             // If the model is invalid, re-populate dropdowns and return to the view
-            
 
+            ViewBag.Capacity = new SelectList(new[] { "1", "2", "3", "4", "5" });
+            ViewBag.Color = new SelectList(new[] { "Red", "Blue", "Green", "Purple", "Yellow" });
             return View(meetingUpdateModel);
         }
 
