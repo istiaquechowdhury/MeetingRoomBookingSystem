@@ -14,7 +14,7 @@ namespace MeetingRoomBooking.Services.Services
 
         (IList<MeetingRoom> data, int total, int totaldisplay) GetMeetings(int pageIndex, int pageSize, DataTablesSearch search, string? order);
         MeetingRoom GetMeeting(Guid id);
-       
+        Task DeleteMeetingsAsync(List<Guid> ids);
         void UpdateMeeting(MeetingRoom meeting);
         void DeleteMeetingRoom(Guid id);
     }

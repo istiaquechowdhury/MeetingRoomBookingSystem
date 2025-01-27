@@ -47,5 +47,21 @@ namespace MeetingRoomBooking.Services.Services
            _MeetingUnitOfWork.MeetingRoom.Remove(id);   
             _MeetingUnitOfWork.Save();
         }
+
+        public async Task DeleteMeetingsAsync(List<Guid> ids)
+        {
+            // Ensure that the list of ids is not null or empty
+            if (ids == null || !ids.Any())
+            {
+                return; // Exit if there are no ids to delete
+            }
+
+            // Use the Remove method with a condition that matches the ids in the provided list
+            _MeetingUnitOfWork.MeetingRoom.Remove(p => ids.Contains(p.Id));
+
+            // Save changes to the database
+            await _MeetingUnitOfWork.SaveAsync();
+        }
+
     }
 }

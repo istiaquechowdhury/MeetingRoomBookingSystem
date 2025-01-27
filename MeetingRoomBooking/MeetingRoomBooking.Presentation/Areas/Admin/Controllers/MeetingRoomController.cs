@@ -216,7 +216,8 @@ namespace MeetingRoomBooking.Presentation.Areas.Admin.Controllers
                         }
 
                         // Set the new image path
-                        meetingUpdateModel.ImagePath = Path.Combine("uploads", uniqueFileName);
+                        // meetingUpdateModel.ImagePath = Path.Combine("uploads", uniqueFileName);
+                        meetingUpdateModel.ImagePath = Path.Combine("uploads", uniqueFileName).Replace("\\", "/");
 
                         // Remove the old image if it exists
                         if (!string.IsNullOrEmpty(meeting.ImagePath))
@@ -309,8 +310,7 @@ namespace MeetingRoomBooking.Presentation.Areas.Admin.Controllers
             return View();
         }
 
-
-
+       
 
     }
 }

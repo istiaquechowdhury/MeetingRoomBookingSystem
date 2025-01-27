@@ -180,13 +180,16 @@
                             <!-- Upload Image and Status Section -->
                             <div id="imagePreviewContainer" style="display: @(string.IsNullOrEmpty(Model.ImagePath) ? "none" : "block"); margin-top: 10px; margin-bottom: 20px;">
                                 <p>Selected Image:</p>
-                                <img id="imagePreview" src="@Model.ImagePath" alt="Image Preview" style="max-width: 200px; max-height: 200px;">
+                                <img id="imagePreview" src="@(Model.ImagePath != null ? Url.Content("~/" + Model.ImagePath.Replace("\\", "/")) : "")" alt="Image Preview" style="max-width: 200px; max-height: 200px;">
                             </div>
                             <div class="form-group">
                                 <label>
                                     <input type="checkbox" asp-for="RemoveImage" /> Remove current image
                                 </label>
                             </div>
+                            <button type="button" id="uploadButton" class="btn btn-primary">Upload Image</button>
+                            <input type="file" id="ImageFile" name="ImageFile" style="display: none;" />
+
 
                             <div class="d-flex align-items-center">
                                 <label asp-for="Status" class="mr-2 mb-0">Is active item?</label>
@@ -244,21 +247,25 @@
         });
     </script> *@
     <script>
-        document.getElementById('uploadButton').addEventListener('click', function () {
-            document.getElementById('ImageFile').click();
+                      document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('uploadButton').addEventListener('click', function () {
+                document.getElementById('ImageFile').click();
+            });
+
+            document.getElementById('ImageFile').addEventListener('change', function (event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const imagePreview = document.getElementById('imagePreview');
+                        imagePreview.src = e.target.result; // Update image source
+                        document.getElementById('imagePreviewContainer').style.display = 'block'; // Show the preview container
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
         });
 
-        document.getElementById('ImageFile').addEventListener('change', function (event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const imagePreview = document.getElementById('imagePreview');
-                    imagePreview.innerHTML = `<img src="${e.target.result}" alt="Selected Image" class="img-fluid" style="max-width: 200px;">`;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
     </script>
 
 

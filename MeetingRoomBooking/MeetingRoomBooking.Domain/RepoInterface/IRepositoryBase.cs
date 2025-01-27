@@ -20,5 +20,7 @@ namespace MeetingRoomBooking.Domain.RepoInterface
         void Remove(TKey id);
         void Remove(TEntity entityToDelete);
 
+        void Remove(Expression<Func<TEntity, bool>> filter);
+
     }
 }

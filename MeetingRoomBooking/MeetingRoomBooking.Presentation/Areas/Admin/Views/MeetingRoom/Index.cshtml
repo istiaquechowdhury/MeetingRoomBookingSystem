@@ -276,16 +276,18 @@
                         }
                     },
                     {
-                        targets: 1,
-                        orderable: false,
-                        render: function (data, type, row) {
-                            console.log('Image path:', data); // Debug log
-                            // `data` should be the relative image path like /images/prod-4.jpg
-                            if (data) {
-                                return `<img src="${data}" alt="Product Image" width="50" height="50"/>`;
-                            }
-                            return `<span>No Image</span>`;
-                        }
+                            targets: 1,
+                                orderable: false,
+                                render: function (data, type, row) {
+                                    console.log('Image path before fix:', data); // Debug log
+                                    if (data) {
+                                        // Replace backslashes with forward slashes
+                                        const imagePath = data.replace(/\\/g, '/');
+                                        console.log('Image path after fix:', imagePath); // Debug log
+                                        return `<img src="/${imagePath}" alt="Product Image" width="50" height="50"/>`; // Prepend a slash to make it a relative URL
+                                    }
+                                    return `<span>No Image</span>`;
+                                }
                     },
 
                     {
@@ -328,42 +330,42 @@
 
 
 
-
-            $("#select-all").on("click", function () {
-                $(".product-select").prop("checked", this.checked);
+        $("#bulk-delete-btn").on("click", function () {
+            var selectedIds = [];
+            $(".product-select:checked").each(function () {
+                selectedIds.push($(this).val()); // Collect selected product IDs
             });
-            $("#bulk-delete-btn").on("click", function () {
-                var selectedIds = [];
-                $(".product-select:checked").each(function () {
-                    selectedIds.push($(this).val()); // Collect selected product IDs
+
+            if (selectedIds.length === 0) {
+                alert("No products selected.");
+                return;
+            }
+
+            // Confirm the bulk delete action
+            if (confirm("Are you sure you want to delete the selected products?")) {
+                // Prepare the data object with the anti-forgery token
+                var data = {
+                    ids: selectedIds, // Pass the selected IDs
+                    __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val() // Include the token
+                };
+
+                // Send the selected IDs to the backend
+                $.ajax({
+                    url: '/Admin/MeetingRoom/BulkDelete',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data), // Serialize the data object
+                    success: function (response) {
+                        alert("Products deleted successfully.");
+                        $('#MeetingRoom').DataTable().ajax.reload();
+                    },
+                    error: function (xhr, status, error) {
+                        alert("An error occurred: " + error);
+                    }
                 });
+            }
+        });
 
-                if (selectedIds.length === 0) {
-                    alert("No products selected.");
-                    return;
-                }
-
-                // Confirm the bulk delete action
-                if (confirm("Are you sure you want to delete the selected products?")) {
-                    // Send the selected IDs to the backend
-                    $.ajax({
-                        url: '/Admin/Product/BulkDelete',
-                        type: 'POST',
-                        contentType: 'application/json',
-                        data: JSON.stringify(selectedIds),
-                        headers: {
-                            'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val() // Anti-forgery token
-                        },
-                        success: function (response) {
-                            alert("Products deleted successfully.");
-                            $('#Products').DataTable().ajax.reload();
-                        },
-                        error: function (xhr, status, error) {
-                            alert("An error occurred: " + error);
-                        }
-                    });
-                }
-            });
 
 
             $('#MeetingRoom').on('click', '.show-bs-modal', function () {
