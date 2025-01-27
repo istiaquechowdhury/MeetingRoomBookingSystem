@@ -4,6 +4,7 @@ using MeetingRoomBooking.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MeetingRoomBooking.Presentation.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250127114307_addedAdminandUserRole")]
+    partial class addedAdminandUserRole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,14 +56,14 @@ namespace MeetingRoomBooking.Presentation.Data.Migrations
                         new
                         {
                             Id = new Guid("d0b85c3e-4f68-4a8c-9c92-7aabc1234567"),
-                            ConcurrencyStamp = "44afa394-e56b-4108-af6c-c9a1773a0ddb",
+                            ConcurrencyStamp = "28257fbc-e923-4da3-8963-b7d08c9c310d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = new Guid("f3c852ab-7db6-4f1a-89c9-8d1abc234567"),
-                            ConcurrencyStamp = "4fd2338c-8276-4927-bebc-d88ac9bb58fe",
+                            ConcurrencyStamp = "79a69b53-414b-40a2-b452-49fa521054c5",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -160,24 +163,6 @@ namespace MeetingRoomBooking.Presentation.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("a0f85c3e-4f68-4a8c-9c92-7aabc1234567"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "921724a0-e5fa-4632-a987-e97da20e2b7c",
-                            Email = "admin@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@GMAIL.COM",
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGSm8i5FdMQCKGkrlO/gbTEeCZKjlw5doF1/dAweSD3LPfpf/zochXBOCpHY83p48Q==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "cd097a25-df76-470b-959e-b90e6c6df9e4",
-                            TwoFactorEnabled = false,
-                            UserName = "admin"
-                        });
                 });
 
             modelBuilder.Entity("MeetingRoomBooking.DataAccess.Identity.ApplicationUserClaim", b =>
@@ -298,26 +283,6 @@ namespace MeetingRoomBooking.Presentation.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("meetingRooms");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
-                {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.ToTable("IdentityUserRole<Guid>");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = new Guid("a0f85c3e-4f68-4a8c-9c92-7aabc1234567"),
-                            RoleId = new Guid("d0b85c3e-4f68-4a8c-9c92-7aabc1234567")
-                        });
                 });
 
             modelBuilder.Entity("MeetingRoomBooking.DataAccess.Identity.ApplicationRoleClaim", b =>
