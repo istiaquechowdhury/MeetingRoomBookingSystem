@@ -219,37 +219,11 @@ namespace MeetingRoomBooking.Presentation.Controllers
         {
             await _signInManager.SignOutAsync();
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-            returnUrl ??= Url.Content("~/");
+           
+            returnUrl = Url.Action("Login", "Account");
             return LocalRedirect(returnUrl);
         }
-        //[HttpGet, AllowAnonymous]
-        //public async Task<IActionResult> ConfirmEmail(string userId, string code, string returnUrl = null)
-        //{
-        //    if (userId == null || code == null)
-        //    {
-        //        return RedirectToAction("Index", "Home"); // Redirect to home page or a relevant page
-        //    }
-
-        //    var user = await _userManager.FindByIdAsync(userId);
-        //    if (user == null)
-        //    {
-        //        return NotFound($"Unable to load user with ID '{userId}'.");
-        //    }
-
-        //    var decodedCode = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
-        //    var result = await _userManager.ConfirmEmailAsync(user, decodedCode);
-        //    if (result.Succeeded)
-        //    {
-        //        TempData["success"] = "Email confirmation done.Please log in";
-        //        // Redirect to login page or a success page
-        //        return RedirectToAction("Login", "Account", new { confirmed = true });
-        //    }
-        //    else
-        //    {
-        //        // Redirect to an error page indicating confirmation failed
-        //        return View("Error");
-        //    }
-        //}
+   
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail(string userId, string code)
@@ -298,13 +272,7 @@ namespace MeetingRoomBooking.Presentation.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public IActionResult IsUsernameAvailable(string username)
-        //{
-        //    var user = _userManager.FindByNameAsync(username).Result;
-        //    return Json(user == null); // Returns true if the username is available, false if it's taken
-        //}
+      
 
         [HttpGet]
         [AllowAnonymous]

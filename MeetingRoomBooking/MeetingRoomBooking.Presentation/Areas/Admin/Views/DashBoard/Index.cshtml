@@ -1,89 +1,163 @@
-﻿  <!-- Content Header (Page header) -->
+﻿<!DOCTYPE html>
+<html lang="en">
 
-<div class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0">Dashboard</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard v1</li>
-                </ol>
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
-</div>
-<!-- /.content-header -->
-<!-- Main content -->
-<section class="content">
-    <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
-        <div class="row">
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-info">
-                    <div class="inner">
-                        <h3></h3>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting Schedule Table</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-                        <p>Total Product</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-bag"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        th, td {
+            border: 1px solid #ddd;
+            text-align: center;
+            vertical-align: middle;
+            padding: 20px;
+            font-size: 1.2rem;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        td button {
+            font-size: 1rem;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            td button:hover {
+                background-color: #0056b3;
+            }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Meeting Schedule</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Meetings</th>
+                    <th>Saturday</th>
+                    <th>Sunday</th>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Meeting 1</strong></td>
+                    <td><button onclick="openModal(this)">+</button></td>
+                    <td><button onclick="openModal(this)">+</button></td>
+                    <td><button onclick="openModal(this)">+</button></td>
+                    <td><button onclick="openModal(this)">+</button></td>
+                    <td><button onclick="openModal(this)">+</button></td>
+                    <td><button onclick="openModal(this)">+</button></td>
+                    <td><button onclick="openModal(this)">+</button></td>
+                </tr>
+                <tr>
+                    <td><strong>Meeting 2</strong></td>
+                    <td><button onclick="openModal(this)">+</button></td>
+                    <td><button onclick="openModal(this)">+</button></td>
+                    <td><button onclick="openModal(this)">+</button></td>
+                    <td><button onclick="openModal(this)">+</button></td>
+                    <td><button onclick="openModal(this)">+</button></td>
+                    <td><button onclick="openModal(this)">+</button></td>
+                    <td><button onclick="openModal(this)">+</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addContentModal" tabindex="-1" aria-labelledby="addContentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addContentModalLabel">Add Content</h5>
+                    <button type="button" class="btn-close" id="closeModal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="contentForm">
+                        <div class="mb-3">
+                            <label for="titleInput" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="titleInput" placeholder="Enter title">
+                        </div>
+                        <div class="mb-3">
+                            <label for="descriptionInput" class="form-label">Description</label>
+                            <textarea class="form-control" id="descriptionInput" rows="3" placeholder="Enter description"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="timeInput" class="form-label">Time</label>
+                            <input type="time" class="form-control" id="timeInput">
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-success">
-                    <div class="inner">
-                        <h3><sup style="font-size: 20px"></sup></h3>
-
-                        <p>Total Stock</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-stats-bars"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-warning">
-                    <div class="inner">
-                        <h3></h3>
-
-                        <p>User Registrations</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-person-add"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-6">
-                <!-- small box -->
-                <div class="small-box bg-danger">
-                    <div class="inner">
-                        <h3></h3>
-
-                        <p>Total Warehouse</p>
-                    </div>
-                    <div class="icon">
-                        <i class="ion ion-pie-graph"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-            <!-- ./col -->
         </div>
-        <!-- /.row -->
-        <!-- Main row -->
-        <!-- /.row (main row) -->
-    </div><!-- /.container-fluid -->
-</section> 
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let currentCell; // To keep track of the clicked cell
+
+        function openModal(button) {
+            currentCell = button.parentElement; // Store the parent <td>
+            const modal = new bootstrap.Modal(document.getElementById('addContentModal'));
+            modal.show();
+        }
+
+        // Handling Cancel button to close modal
+        document.getElementById('cancelBtn').addEventListener('click', function () {
+            const modal = bootstrap.Modal.getInstance(document.getElementById('addContentModal'));
+            modal.hide();
+        });
+
+        // Handling the Close button (X) in the modal header
+        document.getElementById('closeModal').addEventListener('click', function () {
+            const modal = bootstrap.Modal.getInstance(document.getElementById('addContentModal'));
+            modal.hide();
+        });
+
+        document.getElementById('contentForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const title = document.getElementById('titleInput').value;
+            const description = document.getElementById('descriptionInput').value;
+            const time = document.getElementById('timeInput').value;
+
+            // Update the content of the cell
+            currentCell.innerHTML = `
+                <strong>${title}</strong><br>
+                <small>${description}</small><br>
+                <small><em>${time}</em></small>
+            `;
+
+            // Close the modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('addContentModal'));
+            modal.hide();
+
+            // Clear form inputs
+            document.getElementById('contentForm').reset();
+        });
+    </script>
+</body>
+
+</html>

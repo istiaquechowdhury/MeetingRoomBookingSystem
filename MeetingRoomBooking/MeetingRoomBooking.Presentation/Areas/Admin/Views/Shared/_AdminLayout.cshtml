@@ -1,5 +1,4 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -18,6 +17,8 @@
     <link rel="stylesheet" href="~/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- JQVMap -->
     <link rel="stylesheet" href="~/plugins/jqvmap/jqvmap.min.css">
+    <!-- FullCalendar -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@3.3.0/dist/fullcalendar.min.css" />
     <!-- Theme style -->
     <link rel="stylesheet" href="~/dist/css/adminlte.min.css">
     <!-- overlayScrollbars -->
@@ -27,30 +28,20 @@
     <!-- summernote -->
     <link rel="stylesheet" href="~/plugins/summernote/summernote-bs4.min.css">
 
-    <a href="https://www.flaticon.com/free-icons/home" title="home icons"></a>
-
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
-
-
-
     @await RenderSectionAsync("Styles", false);
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-
-      
         <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="margin-bottom:8px;">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <!-- This button toggles the sidebar -->
                     <a class="nav-link nav-toggle-btn" data-widget="pushmenu" href="#" role="button">
                         <i class="fas fa-bars"></i>
                     </a>
                 </li>
             </ul>
-
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -69,11 +60,7 @@
             </ul>
         </nav>
 
-
-
-
         <aside class="main-sidebar sidebar-light-primary elevation-4">
-
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
@@ -81,62 +68,48 @@
                         <img src="~/dist/img/Meeting.png" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Meeting Room Booking</a>
+                        Meeting Room Booking
                     </div>
                 </div>
 
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
-                        <li class="nav-item @((ViewContext.RouteData.Values["Controller"]?.ToString() == "DashBoard") ? "menu-open" : "")">
-                            <a asp-area="Admin" asp-controller="DashBoard" asp-action="Index" class="nav-link @((ViewContext.RouteData.Values["Controller"]?.ToString() == "DashBoard") ? "active" : "")">
-                                <i class="fa-solid fa-house"></i>
-                                <p>
-                                    <img src="~/dist/img/home.png" alt="Dashboard" style="width: 20px; height: 20px; margin-right: 5px;">
-                                    Dashboard
+                        <!-- Sidebar menu items (Dashboard, etc.) -->
+                        <!-- Calendar Section -->
+                        <li class="nav-item">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-calendar-alt"></i>
+                                <p class="ml-2 mb-0">
+                                    <a asp-area="Admin" asp-controller="DashBoard" asp-action="Index" style="text-decoration: none;">Meeting Calendar</a>
                                 </p>
-                            </a>
+                            </div>
+                            <div id="calendar" style="margin: 10px;"></div>
                         </li>
 
+                        <li class="nav-item has-treeview @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Member" ? "menu-open" : "")">
+                            <a href="#" class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Member" ? "active" : "")">
+                                <img src="~/dist/img/management.png" alt="Stocks Logo" class="nav-icon" />
+                                <p>
+                                    User Management
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
 
-                        @if (User.IsInRole("Admin"))
-                        {
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-area="Admin" asp-controller="Member" asp-action="Create" class="nav-link @((ViewContext.RouteData.Values["Controller"]?.ToString() == "Member" && ViewContext.RouteData.Values["Action"]?.ToString() == "Create") ? "active" : "")">
+                                            <p>User Create</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-area="Admin" asp-controller="Member" asp-action="Index" class="nav-link @((ViewContext.RouteData.Values["Controller"]?.ToString() == "Member" && ViewContext.RouteData.Values["Action"]?.ToString() == "Index") ? "active" : "")">
+                                                 <p>User List</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
 
-                            <li class="nav-item has-treeview @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Member" ? "menu-open" : "")">
-                                <a href="#" class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Member" ? "active" : "")">
-                                    <img src="~/dist/img/management.png" alt="Stocks Logo" class="nav-icon" />
-                                    <p>
-                                        User Management
-                                        <i class="fas fa-angle-left right"></i>
-                                    </p>
-                                </a>
-
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a asp-area="Admin" asp-controller="Member" asp-action="CreateRole" class="nav-link @((ViewContext.RouteData.Values["Controller"]?.ToString() == "Member" && ViewContext.RouteData.Values["Action"]?.ToString() == "CreateRole") ? "active" : "")">
-                                            @*                                                 <img src="~/dist/img/warehouse.jpg" alt="Warehouse" style="width: 20px; height: 20px; margin-right: 5px;">
- *@                                                <p>Create Role</p>
-                                        </a>
-                                    </li>
-
-                                    <li class="nav-item">
-                                        <a asp-area="Admin" asp-controller="Member" asp-action="ChangeRole" class="nav-link @((ViewContext.RouteData.Values["Controller"]?.ToString() == "Member" && ViewContext.RouteData.Values["Action"]?.ToString() == "ChangeRole") ? "active" : "")">
-                                            @*                                                 <img src="~/dist/img/Stockadjustment.jpg" alt="Stock Adjustment" style="width: 20px; height: 20px; margin-right: 5px;">
- *@                                                <p>Change Role</p>
-                                        </a>
-                                    </li>
-
-                                    <li class="nav-item">
-                                        <a asp-area="Admin" asp-controller="Member" asp-action="Show" class="nav-link @((ViewContext.RouteData.Values["Controller"]?.ToString() == "Member" && ViewContext.RouteData.Values["Action"]?.ToString() == "Show") ? "active" : "")">
-                                            @*                                                 <img src="~/dist/img/Stockadjustment.jpg" alt="Stock Adjustment" style="width: 20px; height: 20px; margin-right: 5px;">
- *@                                                <p>View Role</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        }
-
-
+                        <!-- Meeting Room Management Section -->
                         <li class="nav-item has-treeview @(ViewContext.RouteData.Values["Controller"]?.ToString() == "MeetingRoom" ? "menu-open" : "")">
                             <a href="#" class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "MeetingRoom" ? "active" : "")">
                                 <img src="~/dist/img/meetingmangement.png" alt="Meeting Room Logo" class="nav-icon" />
@@ -158,101 +131,68 @@
                                         <p>Create Meeting Room</p>
                                     </a>
                                 </li>
-
                             </ul>
                         </li>
-
-
-
 
                     </ul>
                 </nav>
 
-
-
-              
             </div>
-           
         </aside>
 
-      
+
         <div class="content-wrapper">
             @RenderBody()
-           
         </div>
-     
+
         <footer class="main-footer">
             <strong>Copyright &copy; 2025 Developed By Istiaque Chowdhury</strong>
             All rights reserved.
-
         </footer>
 
-     
-        <aside class="control-sidebar control-sidebar-dark">
-         
-        </aside>
-       
+        <aside class="control-sidebar control-sidebar-dark"></aside>
     </div>
- 
+
     <script src="~/plugins/jquery/jquery.min.js"></script>
- 
     <script src="~/plugins/jquery-ui/jquery-ui.min.js"></script>
-    <script>
-        $.widget.bridge('uibutton', $.ui.button)
-    </script>
-  
     <script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-  
     <script src="~/plugins/chart.js/Chart.min.js"></script>
-
     <script src="~/plugins/sparklines/sparkline.js"></script>
-
     <script src="~/plugins/jqvmap/jquery.vmap.min.js"></script>
-  
     <script src="~/plugins/jquery-knob/jquery.knob.min.js"></script>
-   
     <script src="~/plugins/moment/moment.min.js"></script>
     <script src="~/plugins/daterangepicker/daterangepicker.js"></script>
- 
     <script src="~/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
- 
     <script src="~/plugins/summernote/summernote-bs4.min.js"></script>
-  
     <script src="~/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-
-    @await RenderSectionAsync("Scripts", false);
-   
-    <script src="~/dist/js/adminlte.js"></script>
-  
-    <script src="~/dist/js/demo.js"></script>
-
-    <script src="~/dist/js/pages/dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.3.0/dist/fullcalendar.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <script>
-        $(document).ready(function () {
-          
-            toastr.options = {
-                "closeButton": true,
-                "debug": false,
-                "newestOnTop": true,
-                "progressBar": true,
-                "positionClass": "toast-top-right",
-                "preventDuplicates": false,
-                "onclick": null,
-                "showDuration": "300",
-                "hideDuration": "1000",
-                "timeOut": "5000",
-                "extendedTimeOut": "1000",
-                "showEasing": "swing",
-                "hideEasing": "linear",
-                "showMethod": "fadeIn",
-                "hideMethod": "fadeOut"
-            };
+        $(document).ready(function() {
+            // Initialize FullCalendar
+            $('#calendar').fullCalendar({
+                events: [
+                    {
+                        title: 'Meeting with client',
+                        start: '2025-01-28T10:00:00',
+                        end: '2025-01-28T12:00:00',
+                        description: 'Discuss project requirements'
+                    },
+                    {
+                        title: 'Team Meeting',
+                        start: '2025-02-05T14:00:00',
+                        end: '2025-02-05T15:00:00',
+                        description: 'Monthly progress meeting'
+                    }
+                ]
+            });
         });
     </script>
 
-    @RenderSection("Scripts2", required: false)
+    @RenderSection("Scripts", false);
+    <script src="~/dist/js/adminlte.js"></script>
+    <script src="~/dist/js/demo.js"></script>
+    <script src="~/dist/js/pages/dashboard.js"></script>
 </body>
 </html>
-
