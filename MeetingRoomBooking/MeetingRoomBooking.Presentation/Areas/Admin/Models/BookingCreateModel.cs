@@ -1,4 +1,5 @@
 ﻿using MeetingRoomBooking.Domain.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace MeetingRoomBooking.Presentation.Areas.Admin.Models
 {
@@ -10,6 +11,7 @@ namespace MeetingRoomBooking.Presentation.Areas.Admin.Models
 
         public string? PhoneNumber { get; set; }
 
+        [Required]
         public string? MeetingTitle { get; set; }
 
         public string? MeetingPurpose { get; set; }
@@ -18,12 +20,13 @@ namespace MeetingRoomBooking.Presentation.Areas.Admin.Models
 
         public Guid? MeetingRoomId { get; set; }
 
+        [Required]
         public DateOnly? StatDate { get; set; }
-
+        [Required]
         public TimeOnly? StartTime { get; set; }
-
+        [Required]
         public DateOnly? EndDate { get; set; }
-
+        [Required]
         public TimeOnly? EndTime { set; get; }
 
 

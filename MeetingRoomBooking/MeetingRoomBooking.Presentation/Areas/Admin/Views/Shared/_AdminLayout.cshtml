@@ -86,30 +86,58 @@
                             <div id="calendar" style="margin: 10px;"></div>
                         </li>
 
-                        <li class="nav-item has-treeview @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Member" ? "menu-open" : "")">
-                            <a href="#" class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Member" ? "active" : "")">
-                                <img src="~/dist/img/management.png" alt="Stocks Logo" class="nav-icon" />
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item has-treeview @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Member" ? "menu-open" : "")">
+                                <a href="#" class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Member" ? "active" : "")">
+                                    <img src="~/dist/img/management.png" alt="Management Icon" class="nav-icon" />
+                                    <p>
+                                        User Management
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a asp-area="Admin" asp-controller="Member" asp-action="Create"
+                                           class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Member" && ViewContext.RouteData.Values["Action"]?.ToString() == "Create" ? "active" : "")">
+                                            <p>User Create</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-area="Admin" asp-controller="Member" asp-action="Index"
+                                           class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Member" && ViewContext.RouteData.Values["Action"]?.ToString() == "Index" ? "active" : "")">
+                                            <p>User List</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+
+                        <!-- Meeting Room Management Section -->
+                        <li class="nav-item has-treeview @(ViewContext.RouteData.Values["Controller"]?.ToString() == "MeetingRoom" ? "menu-open" : "")">
+                            <a href="#" class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "MeetingRoom" ? "active" : "")">
+                                <img src="~/dist/img/meetingmangement.png" alt="Meeting Room Logo" class="nav-icon" />
                                 <p>
-                                    User Management
+                                    Booking Management
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
 
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a asp-area="Admin" asp-controller="Member" asp-action="Create" class="nav-link @((ViewContext.RouteData.Values["Controller"]?.ToString() == "Member" && ViewContext.RouteData.Values["Action"]?.ToString() == "Create") ? "active" : "")">
-                                            <p>User Create</p>
+                                    <a asp-area="Admin" asp-controller="Booking" asp-action="Index" class="nav-link @((ViewContext.RouteData.Values["Controller"]?.ToString() == "Booking" && ViewContext.RouteData.Values["Action"]?.ToString() == "Index") ? "active" : "")">
+                                        <p>View BookingList</p>
                                     </a>
                                 </li>
+
                                 <li class="nav-item">
-                                    <a asp-area="Admin" asp-controller="Member" asp-action="Index" class="nav-link @((ViewContext.RouteData.Values["Controller"]?.ToString() == "Member" && ViewContext.RouteData.Values["Action"]?.ToString() == "Index") ? "active" : "")">
-                                                 <p>User List</p>
+                                    <a asp-area="Admin" asp-controller="Booking" asp-action="Create" class="nav-link @((ViewContext.RouteData.Values["Controller"]?.ToString() == "Booking" && ViewContext.RouteData.Values["Action"]?.ToString() == "Create") ? "active" : "")">
+                                        <p>Create Booking</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
 
-                        <!-- Meeting Room Management Section -->
                         <li class="nav-item has-treeview @(ViewContext.RouteData.Values["Controller"]?.ToString() == "MeetingRoom" ? "menu-open" : "")">
                             <a href="#" class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "MeetingRoom" ? "active" : "")">
                                 <img src="~/dist/img/meetingmangement.png" alt="Meeting Room Logo" class="nav-icon" />

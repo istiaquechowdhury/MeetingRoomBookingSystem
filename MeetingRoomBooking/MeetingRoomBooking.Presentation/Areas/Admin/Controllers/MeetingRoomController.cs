@@ -9,7 +9,7 @@ using System.Web;
 
 namespace MeetingRoomBooking.Presentation.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"),Authorize]
 
     public class MeetingRoomController : Controller
     {

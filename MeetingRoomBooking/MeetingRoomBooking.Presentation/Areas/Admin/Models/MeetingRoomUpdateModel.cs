@@ -11,9 +11,10 @@ namespace MeetingRoomBooking.Presentation.Areas.Admin.Models
 
         public string? Location { get; set; }
 
+        [Required]
         public int? Capacity { get; set; }
 
-        [Required]
+       
         public string? Facilities { get; set; }
 
         public string? Description { get; set; }

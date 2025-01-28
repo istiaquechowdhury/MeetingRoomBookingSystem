@@ -11,7 +11,7 @@ using System.Web;
 
 namespace MeetingRoomBooking.Presentation.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"),Authorize]
     public class BookingController : Controller
     {
 
@@ -41,7 +41,7 @@ namespace MeetingRoomBooking.Presentation.Areas.Admin.Controllers
 
         public JsonResult GetBookingJsonData([FromBody] BookingListModel model)
         {
-            var result = _bookingManagementService.GetBookings(model.PageIndex, model.PageSize, model.Search, model.FormatSortExpression("UsrName", "Pin", "PhoneNumber", "MeetingTitle", "MeetingPurpose", "RepeatBooking", "StatDate", "StartTime", "EndDate", "EndTime", "Department","Remarks"));
+            var result = _bookingManagementService.GetBookings(model.PageIndex, model.PageSize, model.Search, model.FormatSortExpression("UserName", "Pin", "PhoneNumber", "MeetingTitle", "MeetingPurpose", "RepeatBooking", "StatDate", "StartTime", "EndDate", "EndTime", "Department","Remarks"));
 
             var ProductJsonData = new
             {
@@ -55,17 +55,14 @@ namespace MeetingRoomBooking.Presentation.Areas.Admin.Controllers
 
 
                     HttpUtility.HtmlEncode(record.UserName),
-                    HttpUtility.HtmlEncode(record.Pin),
-                    HttpUtility.HtmlEncode(record.PhoneNumber),
                     HttpUtility.HtmlEncode(record.MeetingTitle),
-                    HttpUtility.HtmlEncode(record.MeetingPurpose),
                     HttpUtility.HtmlEncode(record.RepeatBooking),
                     HttpUtility.HtmlEncode(record.StatDate),
                     HttpUtility.HtmlEncode(record.StartTime),
                     HttpUtility.HtmlEncode(record.EndDate),
                     HttpUtility.HtmlEncode(record.EndTime),
                     HttpUtility.HtmlEncode(record.Department),
-                    HttpUtility.HtmlEncode(record.Remarks),
+                   
 
 
 
