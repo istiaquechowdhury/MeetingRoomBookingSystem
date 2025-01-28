@@ -1,0 +1,268 @@
+﻿@using MeetingRoomBooking.Presentation.Areas.Admin.Models
+@section Styles
+{
+    <style>
+        body {
+            background-color: white;
+        }
+
+        section.content {
+            padding-top: 20px;
+            margin-top: -30px;
+        }
+
+        .form-control-underline {
+            border: none;
+            border-bottom: 1px solid #000;
+            border-radius: 0;
+            outline: none;
+            padding: 10px 0;
+            width: 100%;
+            background-color: transparent;
+            transition: border-color 0.3s ease;
+        }
+
+            .form-control-underline:focus {
+                border-bottom: 2px solid #007bff;
+            }
+
+        .barcode-input-group {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+            .barcode-input-group input {
+                flex-grow: 1;
+                padding-right: 50px;
+            }
+
+        .barcode-image {
+            width: 30px;
+            height: auto;
+            margin-left: -30px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: #fff;
+        }
+
+        h2.text-center {
+            margin-top: 0;
+            margin-bottom: 0;
+            display: inline-block;
+            padding-right: 10px;
+        }
+
+        hr.border-top {
+            border-top: 1px solid black;
+            width: 100%;
+        }
+
+    </style>
+}
+
+
+@model BookingUpdateModel
+<section class="content py-3" style="background-color: #ffffff;">
+
+
+    @*   <partial name="_ToasterNotification" /> *@
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+
+                <h2 class="text-center mb-2">Update New Booking</h2>
+                <hr class="border-top border-dark mb-4">
+
+                <form asp-area="Admin" asp-controller="Booking" asp-action="Update" asp-antiforgery="true" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <!-- Full-width fields -->
+                        <div class="col-md-12">
+
+                            <!-- Item Name Section -->
+                            <div class="mb-4">
+                                <input type="text" asp-for="MeetingTitle" class="form-control-underline" placeholder="Enter Meeting Title*">
+                                <span asp-validation-for="MeetingTitle" class="text-danger"></span>
+                            </div>
+
+                            <!-- Category and Measurement Unit Section - side by side -->
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <!-- Full-width fields -->
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <div class="mb-4">
+                                    <input type="date" asp-for="StatDate" class="form-control-underline" placeholder="Select Day">
+                                    <span asp-validation-for="StatDate" class="text-danger"></span>
+                                </div>
+
+                            </div>
+
+                            <!-- Category and Measurement Unit Section - side by side -->
+
+                        </div>
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <div class="mb-4">
+                                    <input type="time" asp-for="StartTime" class="form-control-underline" placeholder="Select Time">
+                                    <span asp-validation-for="StartTime" class="text-danger"></span>
+                                </div>
+
+                            </div>
+
+                            <!-- Category and Measurement Unit Section - side by side -->
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- Full-width fields -->
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <div class="mb-4">
+                                    <input type="date" asp-for="EndDate" class="form-control-underline" placeholder="Select Day">
+                                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                                </div>
+
+                            </div>
+
+                            <!-- Category and Measurement Unit Section - side by side -->
+
+                        </div>
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <div class="mb-4">
+                                    <input type="time" asp-for="EndTime" class="form-control-underline" placeholder="Select Time">
+                                    <span asp-validation-for="EndTime" class="text-danger"></span>
+                                </div>
+
+                            </div>
+
+                            <!-- Category and Measurement Unit Section - side by side -->
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- Full-width fields -->
+                        <div class="col-md-12">
+
+                            <div class="form-group">
+                                <label for="RepeatBooking">Repeat Booking</label>
+                                <select asp-for="RepeatBooking" class="form-control" asp-items="ViewBag.RepeatBooking">
+                                    <option value="">Select Booking</option>
+                                </select>
+                                <span asp-validation-for="RepeatBooking" class="text-danger"></span>
+                            </div>
+
+                            <!-- Category and Measurement Unit Section - side by side -->
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <!-- Full-width fields -->
+                        <div class="col-md-12">
+
+                            <div class="form-group">
+                                <label for="Department">Department</label>
+                                <select asp-for="Department" class="form-control" asp-items="ViewBag.Department">
+                                    <option value="">Select Department</option>
+                                </select>
+                                <span asp-validation-for="Department" class="text-danger"></span>
+                            </div>
+
+                            <!-- Category and Measurement Unit Section - side by side -->
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <!-- Full-width fields -->
+                        <div class="col-md-12">
+
+                            <!-- Item Name Section -->
+                            <div class="mb-4">
+                                <input type="text" asp-for="MeetingTitle" class="form-control-underline" placeholder="Enter Meeting Title*">
+                                <span asp-validation-for="MeetingTitle" class="text-danger"></span>
+                            </div>
+
+                            <!-- Category and Measurement Unit Section - side by side -->
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Save Buttons -->
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary btn-sm mr-2 px-3" id="saveButton">Save</button>
+                            <button type="submit" class="btn btn-primary btn-sm mr-2 px-3" id="saveAndNewButton">Save and New</button>
+                            <button type="button" class="btn btn-danger btn-sm px-3" onclick="window.location.href='/Admin/Booking'">Cancel</button>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="redirectToNew" name="redirectToNew" value="false" />
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@section Scripts
+{
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+
+
+
+
+
+
+
+    <partial name="_ValidationScriptsPartial" />
+
+
+
+    <script>
+        $(document).ready(function () {
+            $('#saveButton').click(function () {
+                $('#redirectToNew').val('false'); // Set the hidden field to false for regular Save
+            });
+
+            $('#saveAndNewButton').click(function () {
+                $('#redirectToNew').val('true'); // Set the hidden field to true for Save and New
+            });
+        });
+    </script>
+
+
+
+
+
+}
+
+
+
+
+
+

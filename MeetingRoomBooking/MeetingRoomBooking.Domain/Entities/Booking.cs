@@ -31,6 +31,10 @@ namespace MeetingRoomBooking.Domain.Entities
         public DateOnly? EndDate { get; set; }   
 
         public TimeOnly? EndTime {  set; get; }
+
+        public string? Department {  get; set; }
+
+        public string? Remarks { get; set; }    
         
         public MeetingRoom MeetingRoom { get; set; }    
     }

@@ -17,5 +17,6 @@ namespace MeetingRoomBooking.Services.Services
         Task DeleteMeetingsAsync(List<Guid> ids);
         void UpdateMeeting(MeetingRoom meeting);
         void DeleteMeetingRoom(Guid id);
+        IList<MeetingRoom> GetMeetingRooms();
     }
 }

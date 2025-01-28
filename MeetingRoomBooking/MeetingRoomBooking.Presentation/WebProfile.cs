@@ -11,6 +11,12 @@ namespace MeetingRoomBooking.Presentation
         {
             CreateMap<MeetingRoomCreateModel, MeetingRoom>().ReverseMap();
             CreateMap<MeetingRoomUpdateModel, MeetingRoom>().ReverseMap();
+            CreateMap<BookingCreateModel, Booking>().ReverseMap();
+            CreateMap<BookingUpdateModel, Booking>().ReverseMap();
+
+
+
+
 
 
 

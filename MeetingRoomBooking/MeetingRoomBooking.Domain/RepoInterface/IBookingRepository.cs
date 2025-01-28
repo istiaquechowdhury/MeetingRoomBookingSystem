@@ -9,5 +9,6 @@ namespace MeetingRoomBooking.Domain.RepoInterface
 {
     public interface IBookingRepository : IRepositoryBase<Booking, Guid>
     {
+        (IList<Booking> data, int total, int totaldisplay) GetPagedBooking(int pageIndex, int pageSize, DataTablesSearch search, string? order);
     }
 }

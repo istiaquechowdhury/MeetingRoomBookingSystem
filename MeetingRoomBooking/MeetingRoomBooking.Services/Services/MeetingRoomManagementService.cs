@@ -63,5 +63,14 @@ namespace MeetingRoomBooking.Services.Services
             await _MeetingUnitOfWork.SaveAsync();
         }
 
+        public void GetMeetingRooms()
+        {
+            
+        }
+
+        IList<MeetingRoom> IMeetingRoomManagementService.GetMeetingRooms()
+        {
+            return _MeetingUnitOfWork.MeetingRoom.GetAll(); 
+        }
     }
 }
