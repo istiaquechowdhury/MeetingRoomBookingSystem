@@ -65,6 +65,7 @@ namespace MeetingRoomBooking.Presentation.Areas.Admin.Controllers
                 {
                     Id = Guid.NewGuid(),
                     UserName = model.UserName,
+                    Pin = model.Pin,
                     Email = model.Email,
                     PhoneNumber = model.Phone,
                     Department = model.Department,
@@ -107,7 +108,9 @@ namespace MeetingRoomBooking.Presentation.Areas.Admin.Controllers
             {
                 Id = user.Id,
                 UserName = user.UserName,
+                Pin = user.Pin,
                 Email = user.Email,
+
                 Phone = user.PhoneNumber,
                 Department = user.Department,
                 Designation = user.Designation,
@@ -130,6 +133,7 @@ namespace MeetingRoomBooking.Presentation.Areas.Admin.Controllers
                 if (user == null) return NotFound();
 
                 user.UserName = model.UserName;
+                user.Pin = model.Pin;
                 user.Email = model.Email;
                 user.PhoneNumber = model.Phone;
                 user.Department = model.Department;
