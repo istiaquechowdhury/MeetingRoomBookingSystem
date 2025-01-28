@@ -169,11 +169,28 @@ namespace MeetingRoomBooking.Presentation.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(Guid id)
         {
+            // Find the user
             var user = await _userManager.FindByIdAsync(id.ToString());
-            if (user == null) return NotFound();
+            if (user == null)
+                return NotFound();
 
-            var result = await _userManager.DeleteAsync(user);
-            if (result.Succeeded)
+            // Get all roles associated with the user
+            var roles = await _userManager.GetRolesAsync(user);
+
+            // Remove all roles from the user
+            foreach (var role in roles)
+            {
+                var roleRemovalResult = await _userManager.RemoveFromRoleAsync(user, role);
+                if (!roleRemovalResult.Succeeded)
+                {
+                    TempData["error"] = "Failed to remove user from roles.";
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+
+            // Delete the user
+            var deleteResult = await _userManager.DeleteAsync(user);
+            if (deleteResult.Succeeded)
             {
                 TempData["success"] = "User deleted successfully!";
                 return RedirectToAction(nameof(Index));
@@ -182,6 +199,7 @@ namespace MeetingRoomBooking.Presentation.Areas.Admin.Controllers
             TempData["error"] = "Failed to delete user.";
             return RedirectToAction(nameof(Index));
         }
+
     }
 
 
