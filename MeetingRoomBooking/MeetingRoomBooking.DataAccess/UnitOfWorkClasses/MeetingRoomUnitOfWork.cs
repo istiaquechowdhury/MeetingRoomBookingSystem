@@ -16,10 +16,13 @@ namespace MeetingRoomBooking.DataAccess.UnitOfWorkClasses
     {
         public IMeetingRoomRepository MeetingRoom { get; private set; }
 
-        
-        public MeetingRoomUnitOfWork(ApplicationDbContext dbContext, IMeetingRoomRepository meetingRoom) : base(dbContext)
+        public IBookingRepository Booking { get; private set; }
+
+
+        public MeetingRoomUnitOfWork(ApplicationDbContext dbContext, IMeetingRoomRepository meetingRoom,IBookingRepository booking) : base(dbContext)
         {
            MeetingRoom = meetingRoom;   
+           Booking = booking;
 
 
 

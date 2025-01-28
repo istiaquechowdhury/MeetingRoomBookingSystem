@@ -97,6 +97,10 @@ namespace MeetingRoomBooking.DataAccess
            
         }
 
-        public DbSet<MeetingRoom> meetingRooms { get; set; } 
+        public DbSet<MeetingRoom> meetingRooms { get; set; }
+
+        public DbSet<Booking> Bookings { get; set; }
+
+
     }
 }

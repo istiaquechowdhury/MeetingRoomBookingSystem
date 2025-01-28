@@ -10,27 +10,27 @@ namespace MeetingRoomBooking.Domain.Entities
     {
         public Guid Id { get; set; } 
         
-        public string UserName { get; set; }
+        public string? UserName { get; set; }
 
-        public string Pin {  get; set; } 
+        public string? Pin {  get; set; } 
         
-        public string PhoneNumber { get; set; }     
+        public string? PhoneNumber { get; set; }     
 
-        public string MeetingTitle { get; set; }  
+        public string? MeetingTitle { get; set; }  
         
-        public string MeetingPurpose { get; set; }  
+        public string? MeetingPurpose { get; set; }  
 
-        public string RepeatBooking { get; set; }   
+        public string? RepeatBooking { get; set; }   
 
-        public Guid MeetingRoomId { get; set; } 
+        public Guid? MeetingRoomId { get; set; } 
 
-        public DateOnly StatDate { get; set; }  
+        public DateOnly? StatDate { get; set; }  
 
-        public TimeOnly StartTime {  get; set; } 
+        public TimeOnly? StartTime {  get; set; } 
 
-        public DateOnly EndDate { get; set; }   
+        public DateOnly? EndDate { get; set; }   
 
-        public TimeOnly EndTime {  set; get; }
+        public TimeOnly? EndTime {  set; get; }
         
         public MeetingRoom MeetingRoom { get; set; }    
     }

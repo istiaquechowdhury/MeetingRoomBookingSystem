@@ -30,6 +30,14 @@ namespace MeetingRoomBooking.Presentation
                 .As<IMeetingRoomManagementService>()
                 .InstancePerLifetimeScope();
 
+            builder.RegisterType<BookingRepository>()
+                      .As<IBookingRepository>()
+                      .InstancePerLifetimeScope();
+
+            builder.RegisterType<BookingManagementService>()
+               .As<IBookingManagementService>()
+               .InstancePerLifetimeScope();
+
 
         }
 

@@ -13,6 +13,8 @@ namespace MeetingRoomBooking.Domain.UnitOfWorkInterfaces
     {
         public IMeetingRoomRepository MeetingRoom { get; }
 
+        public IBookingRepository Booking { get; }
+
 
 
 
